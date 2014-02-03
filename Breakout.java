@@ -80,8 +80,8 @@ public class Breakout extends GraphicsProgram {
 	/** Sets up bricks in game */
 
 	private void setupGame() {
-		for (int row=0; row<NBRICKS_PER_ROW; row++) {
-			for (int column=0; column<NBRICK_ROWS; column++) {
+		for (int row=1; row<NBRICKS_PER_ROW; row++) {
+			for (int column=1; column<NBRICK_ROWS; column++) {
 				createBrick(row,column);
 			}
 		}
@@ -92,8 +92,8 @@ public class Breakout extends GraphicsProgram {
 	private void createBrick(int row, int column) {
 		double topBrickX= (APPLICATION_WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
 		double topBrickY= BRICK_Y_OFFSET;
-		double newBrickX= topBrickX+column*BRICK_WIDTH;
-		double newBrickY= topBrickY+row*BRICK_HEIGHT;
+		double newBrickX= topBrickX+(column-1)*BRICK_WIDTH;
+		double newBrickY= topBrickY+(row-1)*BRICK_HEIGHT;
 		GRect brick= new GRect (newBrickX,newBrickY,BRICK_WIDTH, BRICK_HEIGHT);
 		brick.setFilled(true);
 		Color brickColor= whatIsColorGivenRow(row);
