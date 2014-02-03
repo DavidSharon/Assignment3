@@ -105,16 +105,16 @@ public class Breakout extends GraphicsProgram {
 	/** Returns color of a brick given it's row */
 
 	private Color whatIsColorGivenRow(int row) {
-		if (row<3){
+		if (row<=2){
 			return(FIRST_TWO_ROWS_COLOR);
 		}else{
-			if (row<5) {
+			if (row<=4) {
 				return(SECOND_TWO_ROWS_COLOR);
 			}else{
-				if (row<7) {
+				if (row<=6) {
 					return(THIRD_TWO_ROWS_COLOR);
 				}else{
-					if (row<9) {
+					if (row<=8) {
 						return(FOURTH_TWO_ROWS_COLOR);
 					}
 				}
