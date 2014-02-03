@@ -80,8 +80,8 @@ public class Breakout extends GraphicsProgram {
 	/** Sets up bricks in game */
 
 	private void setupGame() {
-		for (int row=1; row<NBRICKS_PER_ROW; row++) {
-			for (int column=1; column<NBRICK_ROWS; column++) {
+		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
+			for (int column=1; column<=NBRICK_ROWS; column++) {
 				createBrick(row,column);
 			}
 		}
