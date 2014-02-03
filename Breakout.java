@@ -43,7 +43,7 @@ public class Breakout extends GraphicsProgram {
 
 	/** Width of a brick */
 	private static final int BRICK_WIDTH =
-	  (WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
+		(WIDTH - (NBRICKS_PER_ROW - 1) * BRICK_SEP) / NBRICKS_PER_ROW;
 
 	/** Height of a brick */
 	private static final int BRICK_HEIGHT = 8;
@@ -57,7 +57,71 @@ public class Breakout extends GraphicsProgram {
 	/** Number of turns */
 	private static final int NTURNS = 3;
 
+	/** Brick color of first two rows */
+	private static final Color FIRST_TWO_ROWS_COLOR=Color.RED;
+
+	/** Brick color of second two rows */
+	private static final Color SECOND_TWO_ROWS_COLOR=Color.ORANGE;
+
+	/** Brick color of third two rows */
+	private static final Color THIRD_TWO_ROWS_COLOR=Color.YELLOW;
+
+	/** Brick color of fourth two rows */
+	private static final Color FOURTH_TWO_ROWS_COLOR=Color.GREEN;
+
+	/** Brick color of fifth two rows */
+	private static final Color FIFTH_TWO_ROWS_COLOR=Color.CYAN;
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
+		setupGame();
+		/*playGame(); */
 	}
+
+	/** Sets up bricks in game */
+
+	private void setupGame() {
+		for (int row=0; row<NBRICKS_PER_ROW; row++) {
+			for (int column=0; column<NBRICK_ROWS; column++) {
+				createBrick(row,column);
+			}
+		}
+	}
+
+	/** Creates individual brick given row and column */
+
+	private void createBrick(int row, int column) {
+		double topBrickX= (APPLICATION_WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
+		double topBrickY= BRICK_Y_OFFSET;
+		double newBrickX= topBrickX+column*BRICK_WIDTH;
+		double newBrickY= topBrickY+row*BRICK_HEIGHT;
+		GRect brick= new GRect (newBrickX,newBrickY,BRICK_WIDTH, BRICK_HEIGHT);
+		brick.setFilled(true);
+		Color brickColor= whatIsColorGivenRow(row);
+		brick.setFillColor(brickColor);
+		add(brick);
+
+	}
+
+	/** Returns color of a brick given it's row */
+
+	private Color whatIsColorGivenRow(int row) {
+		if (row<3){
+			return(FIRST_TWO_ROWS_COLOR);
+		}else{
+			if (row<5) {
+				return(SECOND_TWO_ROWS_COLOR);
+			}else{
+				if (row<7) {
+					return(THIRD_TWO_ROWS_COLOR);
+				}else{
+					if (row<9) {
+						return(FOURTH_TWO_ROWS_COLOR);
+					}
+				}
+			}
+		}
+		return(FIFTH_TWO_ROWS_COLOR);
+	}
+
+
 }
