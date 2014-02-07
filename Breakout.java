@@ -91,8 +91,6 @@ public class Breakout extends GraphicsProgram {
 	/**Instance variables of ball velocity on x and y axis */
 	private double vx, vy;
 
-	private boolean isBeginningOfTurn=true;
-
 	/** Intialize Random Generator */
 	RandomGenerator rgen = RandomGenerator.getInstance(); 
 
@@ -100,12 +98,9 @@ public class Breakout extends GraphicsProgram {
 		setupGame();
 		addMouseListeners();
 		for (int life=1; life<=NTURNS; life++) {
-			if (isBeginningOfTurn==false){
 				playTurn(life);
-				isBeginningOfTurn=true;
 			}
 		}
-	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 
 	private void playTurn(int life) {
@@ -116,7 +111,6 @@ public class Breakout extends GraphicsProgram {
 			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
-		isBeginningOfTurn=true;
 	}
 
 	/** Adjusts ball trajectory if it hit any of the walls- except the bottom one **/
@@ -158,13 +152,10 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		if (isBeginningOfTurn==true) {
 			vx=rgen.nextDouble(1,3);
 			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
 			add(ball);
-			isBeginningOfTurn=false;
-		}
 	}
 
 	/** Sets up bricks in game */
