@@ -124,7 +124,7 @@ public class Breakout extends GraphicsProgram {
 		if (ball.getX() >= WIDTH) {
 			vx=-1*Math.abs(vx);
 		}else{
-			if (ball.getX()<=WIDTH) {
+			if (ball.getX()<=0) {
 				vx=Math.abs(vx);
 			}else{
 				if (ball.getY()<=0) {
