@@ -107,6 +107,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	*/
+	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 	/*
 	private void playTurn(int life) {
