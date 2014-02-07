@@ -96,8 +96,8 @@ public class Breakout extends GraphicsProgram {
 
 	public void run() {
 		setupGame();
+		addMouseListeners();
 		for (int life=1; life<=NTURNS; life++) {
-				addMouseListeners();
 				playTurn(life);
 			}
 		}
@@ -111,6 +111,7 @@ public class Breakout extends GraphicsProgram {
 			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
 			}
+		ball.setFillColor(Color.white);
 		ball=createBall();
 	}
 
