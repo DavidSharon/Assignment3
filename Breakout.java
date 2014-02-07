@@ -138,7 +138,21 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private void adjustForBrickCollision() {
-		if (ballIsClear() != ball) {
+		if (ballIsClear() != ball && ballIsClear() != paddle) {
+			int collisionPoint=pointOfBallCollision();
+			if (collisionPoint==1) {
+				vy=Math.abs(vy);
+			}else{
+				if (collisionPoint==2) {
+					vx=-1*Math.abs(vx);
+				}else{
+					if (collisionPoint==3) {
+						vy=-1*Math.abs(vy);
+					}
+				}else{
+					vx=Math.abs(vx);
+				}
+			}
 			remove(ballIsClear());
 		}
 	}
@@ -157,6 +171,22 @@ public class Breakout extends GraphicsProgram {
 		return ball;
 	}
 
+	private int pointOfBallCollision() {
+		double checkX=ball.getX()+BALL_RADIUS;
+		double checkY=ball.getY();
+		if (getElementAt(checkX,checkY) != null) return 1;
+		checkX=checkX+BALL_RADIUS;
+		checkY= checkY+ BALL_RADIUS;
+		if (getElementAt(checkX,checkY) != null) return 2;
+		checkX=checkX-BALL_RADIUS;
+		checkY= checkY+BALL_RADIUS;
+		if (getElementAt(checkX,checkY) != null) return 3;
+		checkX=checkX-BALL_RADIUS;
+		checkY= checkY-BALL_RADIUS;
+		if (getElementAt(checkX,checkY) != null) return 4;
+		return 0;
+	}
+	
 	/** Makes paddle track mouse */
 	public void mouseMoved(MouseEvent e) {
 		double paddleLocationX=e.getX()-paddle.getWidth() / 2.0;
