@@ -58,7 +58,7 @@ public class Breakout extends GraphicsProgram {
 	/** Number of turns */
 	private static final int NTURNS = 3;
 
-	private static final int WAIT_BETWEEN_BALL_MOVES=50;
+	private static final int WAIT_BETWEEN_BALL_MOVES=10;
 
 	/** Paddle color */
 	private static final Color PADDLE_COLOR=Color.black;
@@ -96,8 +96,8 @@ public class Breakout extends GraphicsProgram {
 
 	public void run() {
 		setupGame();
-		addMouseListeners();
 		for (int life=1; life<=NTURNS; life++) {
+				addMouseListeners();
 				playTurn(life);
 			}
 		}
@@ -110,12 +110,13 @@ public class Breakout extends GraphicsProgram {
 			/*adjustForBrickCollision();*/
 			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
-		}
+			}
+		ball=createBall();
 	}
 
 	/** Adjusts ball trajectory if it hit any of the walls- except the bottom one **/
 	private void adjustForWallCollision() {
-		if (ball.getX() >= WIDTH) {
+		if (ball.getX() +ball.getWidth() >= WIDTH) {
 			vx=-1*Math.abs(vx);
 		}else{
 			if (ball.getX()<=0) {
