@@ -109,7 +109,7 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Creates ball and does not add to screen*/
 	private GOval createBall() {
-		double ballStartX= APPLICATION_WIDTH/2;
+		double ballStartX= APPLICATION_WIDTH/2-BALL_RADIUS;
 		double lowestBrickY= NBRICK_ROWS*BRICK_HEIGHT+BRICK_Y_OFFSET;
 		double heightBetweenPaddleLowestBrick= lowestBrickY-PADDLE_HEIGHT+PADDLE_Y_OFFSET;
 		double ballStartY= lowestBrickY+heightBetweenPaddleLowestBrick;
