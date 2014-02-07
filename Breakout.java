@@ -111,7 +111,7 @@ public class Breakout extends GraphicsProgram {
 	public void mouseClicked(MouseEvent e) {
 		vx=rgen.nextDouble(1,3);
 		vy=3.0;
-		
+	}
 	
 	/** Sets up bricks in game */
 	private void setupGame() {
