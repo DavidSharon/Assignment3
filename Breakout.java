@@ -98,9 +98,9 @@ public class Breakout extends GraphicsProgram {
 		setupGame();
 		addMouseListeners();
 		for (int life=1; life<=NTURNS; life++) {
-				playTurn(life);
-			}
+			playTurn(life);
 		}
+	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 
 	private void playTurn(int life) {
@@ -129,17 +129,18 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
-	
+
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
 		if (ballIsClear()==paddle) {
 			vy=-1*Math.abs(vy);
 		}
 	}
-	
+
 	private void adjustForBrickCollision() {
 		if (ballIsClear() != ball && ballIsClear() != paddle) {
 			int collisionPoint=pointOfBallCollision();
+			remove(ballIsClear());
 			if (collisionPoint==1) {
 				vy=Math.abs(vy);
 			}else{
@@ -148,15 +149,14 @@ public class Breakout extends GraphicsProgram {
 				}else{
 					if (collisionPoint==3) {
 						vy=-1*Math.abs(vy);
+					}else{
+						vx=Math.abs(vx);
 					}
-				}else{
-					vx=Math.abs(vx);
 				}
 			}
-			remove(ballIsClear());
 		}
 	}
-	
+
 	private GObject ballIsClear() {
 		double checkX=ball.getX();
 		double checkY=ball.getY();
@@ -186,7 +186,7 @@ public class Breakout extends GraphicsProgram {
 		if (getElementAt(checkX,checkY) != null) return 4;
 		return 0;
 	}
-	
+
 	/** Makes paddle track mouse */
 	public void mouseMoved(MouseEvent e) {
 		double paddleLocationX=e.getX()-paddle.getWidth() / 2.0;
@@ -204,11 +204,11 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-			vx=rgen.nextDouble(1,3);
-			if (rgen.nextBoolean(0.5)) vx = -vx;
-			vy=3.0;
-			createBall();
-			add(ball);
+		vx=rgen.nextDouble(1,3);
+		if (rgen.nextBoolean(0.5)) vx = -vx;
+		vy=3.0;
+		createBall();
+		add(ball);
 	}
 
 	/** Sets up bricks in game */
@@ -280,5 +280,5 @@ public class Breakout extends GraphicsProgram {
 		}
 		return(FIFTH_TWO_ROWS_COLOR);
 	}
-	
+
 }
