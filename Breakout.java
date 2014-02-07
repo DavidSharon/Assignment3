@@ -105,7 +105,7 @@ public class Breakout extends GraphicsProgram {
 	/** Makes paddle track mouse */
 	public void mouseMoved(MouseEvent e) {
 		paddle.setLocation(e.getX() - paddle.getWidth() / 2.0,
-				            e.getY() - paddle.getHeight() / 2.0);
+				           paddle.getY());
 	}
 	
 	/** Sets up bricks in game */
