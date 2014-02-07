@@ -109,7 +109,7 @@ public class Breakout extends GraphicsProgram {
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 
 	private void playTurn(int life) {
-		while (ball.getY()<HEIGHT) {
+		while (ball.getY()+BALL_RADIUS*2<HEIGHT) {
 			ball.move(vx,vy);
 			adjustForWallCollision();
 			/*adjustForBrickCollision();*/
@@ -160,6 +160,7 @@ public class Breakout extends GraphicsProgram {
 	public void mouseClicked(MouseEvent e) {
 		if (isBeginningOfTurn==true) {
 			vx=rgen.nextDouble(1,3);
+			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
 			add(ball);
 			isBeginningOfTurn=false;
