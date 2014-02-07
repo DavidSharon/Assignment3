@@ -137,9 +137,9 @@ public class Breakout extends GraphicsProgram {
 	}
 	
 	private boolean ballIsClear() {
-		double checkX=ball.getX() +0.001;
-		double checkY=ball.getY() +0.001;
-		ball.sendBackward();
+		double checkX=ball.getX();
+		double checkY=ball.getY();
+		ball.sendToBack();
 		if (getElementAt(checkX,checkY) != ball) return false;
 		checkX= checkX+ ball.getWidth();
 		if (getElementAt(checkX,checkY) != ball) return false;
