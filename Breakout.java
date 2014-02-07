@@ -99,7 +99,6 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		setupGame();
 		addMouseListeners();
-
 		for (int life=1; life<=NTURNS; life++) {
 			if (isBeginningOfTurn=false){
 				playTurn(life);
