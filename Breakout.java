@@ -25,6 +25,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int WIDTH = APPLICATION_WIDTH;
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
+	
 	/** Dimensions of the paddle */
 	private static final int PADDLE_WIDTH = 60;
 	private static final int PADDLE_HEIGHT = 10;
@@ -57,6 +58,8 @@ public class Breakout extends GraphicsProgram {
 	/** Number of turns */
 	private static final int NTURNS = 3;
 
+	private static final int WAIT_BETWEEN_BALL_MOVES=50;
+	
 	/** Paddle color */
 	private static final Color PADDLE_COLOR=Color.black;
 	
@@ -88,29 +91,59 @@ public class Breakout extends GraphicsProgram {
 	/**Instance variables of ball velocity on x and y axis */
 	private double vx, vy;
 	
+	private boolean isBeginningOfTurn=true;
+	
 	/** Intialize Random Generator */
 	RandomGenerator rgen = RandomGenerator.getInstance(); 
 
 	public void run() {
-		/* You fill this in, along with any subsidiary methods */
 		setupGame();
 		addMouseListeners();
 		/*
 		for (int life=1; life<=NTURNS; life++) {
-			playTurn();
+			if (isBeginningOfTurn=false){
+				playTurn(life);
+			}
 		}
 	}
 	*/
+	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
+	/*
+	private void playTurn(int life) {
+		while (ball.getY()>HEIGHT) {
+			adjustForWallCollision();
+			adjustForBrickCollision();
+			adjustForPaddleCollision();
+			ball.move(vx,vy);
+			pause(WAIT_BETWEEN_BALL_MOVES);
+		}
+		isBeginningOfTurn=true;
 	}
+	*/
+	
 	/** Makes paddle track mouse */
 	public void mouseMoved(MouseEvent e) {
-		paddle.setLocation(e.getX() - paddle.getWidth() / 2.0,
+		double paddleLocationX=e.getX()-paddle.getWidth() / 2.0;
+		if ((paddleLocationX+(paddle.getWidth()))>WIDTH) {
+			paddleLocationX=WIDTH-paddle.getWidth();
+		}else{
+			if (paddleLocationX<0){
+				paddleLocationX=0;
+			}
+		}
+		
+		paddle.setLocation(paddleLocationX,
 				           paddle.getY());
 	}
 	
+	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		vx=rgen.nextDouble(1,3);
-		vy=3.0;
+		if (isBeginningOfTurn==true) {
+			vx=rgen.nextDouble(1,3);
+			vy=3.0;
+			add(ball);
+			isBeginningOfTurn=false;
+		}
 	}
 	
 	/** Sets up bricks in game */
@@ -124,7 +157,7 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Creates ball and does not add to screen*/
 	private GOval createBall() {
-		double ballStartX= APPLICATION_WIDTH/2-BALL_RADIUS;
+		double ballStartX= WIDTH/2-BALL_RADIUS;
 		double lowestBrickY= NBRICK_ROWS*BRICK_HEIGHT+BRICK_Y_OFFSET;
 		double heightBetweenPaddleLowestBrick= lowestBrickY-PADDLE_HEIGHT+PADDLE_Y_OFFSET;
 		double ballStartY= lowestBrickY+heightBetweenPaddleLowestBrick;
@@ -136,8 +169,8 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Creates paddle and adds to screen*/
 	private GRect createPaddle() {
-		double paddleStartX= (APPLICATION_WIDTH- PADDLE_WIDTH)/2;
-		double paddleStartY=APPLICATION_HEIGHT-PADDLE_Y_OFFSET-PADDLE_HEIGHT;
+		double paddleStartX= (WIDTH- PADDLE_WIDTH)/2;
+		double paddleStartY=HEIGHT-PADDLE_Y_OFFSET-PADDLE_HEIGHT;
 		GRect newPaddle= new GRect(paddleStartX,paddleStartY,PADDLE_WIDTH,PADDLE_HEIGHT);
 		newPaddle.setFilled(true);
 		newPaddle.setFillColor(PADDLE_COLOR);
@@ -148,7 +181,7 @@ public class Breakout extends GraphicsProgram {
 	/** Creates individual brick given row and column */
 
 	private void createBrick(int row, int column) {
-		double topBrickX= (APPLICATION_WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
+		double topBrickX= (WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
 		double topBrickY= BRICK_Y_OFFSET;
 		double newBrickX= topBrickX+(column-1)*BRICK_WIDTH;
 		double newBrickY= topBrickY+(row-1)*BRICK_HEIGHT;
