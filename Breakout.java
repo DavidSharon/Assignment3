@@ -155,6 +155,7 @@ public class Breakout extends GraphicsProgram {
 			vx=rgen.nextDouble(1,3);
 			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
+			createBall();
 			add(ball);
 	}
 
