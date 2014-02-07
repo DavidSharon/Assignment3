@@ -142,11 +142,11 @@ public class Breakout extends GraphicsProgram {
 		ball.sendToBack();
 		if (getElementAt(checkX,checkY) != ball) return false;
 		checkX= checkX+ ball.getWidth();
-		if (getElementAt(checkX,checkY) != ball) return false;
+		if (getElementAt(checkX,checkY) != null) return false;
 		checkY= checkY+ball.getHeight();
-		if (getElementAt(checkX,checkY) != ball) return false;
+		if (getElementAt(checkX,checkY) != null) return false;
 		checkX=checkX-ball.getWidth();
-		if (getElementAt(checkX,checkY) != ball) return false;
+		if (getElementAt(checkX,checkY) != null) return false;
 		return true;
 	}
 
