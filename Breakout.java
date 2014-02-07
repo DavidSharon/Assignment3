@@ -131,12 +131,12 @@ public class Breakout extends GraphicsProgram {
 	
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
-		if (checkElement()==false) {
+		if (ballIsClear()==false) {
 			vy=-1*Math.abs(vy);
 		}
 	}
 	
-	private boolean checkElement() {
+	private boolean ballIsClear() {
 		double checkX=ball.getX();
 		double checkY=ball.getY();
 		ball.sendBackward();
