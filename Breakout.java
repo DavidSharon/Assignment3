@@ -107,7 +107,7 @@ public class Breakout extends GraphicsProgram {
 		while (ball.getY()+BALL_RADIUS*2<HEIGHT) {
 			ball.move(vx,vy);
 			adjustForWallCollision();
-			/*adjustForBrickCollision();*/
+			adjustForBrickCollision();
 			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
@@ -131,23 +131,29 @@ public class Breakout extends GraphicsProgram {
 	
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
-		if (ballIsClear()==false) {
+		if (ballIsClear()==paddle) {
 			vy=-1*Math.abs(vy);
 		}
 	}
 	
-	private boolean ballIsClear() {
+	private void adjustForBrickCollision() {
+		if (ballIsClear() != ball) {
+			remove(ballIsClear());
+		}
+	}
+	
+	private GObject ballIsClear() {
 		double checkX=ball.getX();
 		double checkY=ball.getY();
 		ball.sendToBack();
-		if (getElementAt(checkX,checkY) != null) return false;
+		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
 		checkX= checkX+ ball.getWidth();
-		if (getElementAt(checkX,checkY) != null) return false;
+		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
 		checkY= checkY+ball.getHeight();
-		if (getElementAt(checkX,checkY) != null) return false;
+		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
 		checkX=checkX-ball.getWidth();
-		if (getElementAt(checkX,checkY) != null) return false;
-		return true;
+		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
+		return ball;
 	}
 
 	/** Makes paddle track mouse */
