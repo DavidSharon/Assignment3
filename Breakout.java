@@ -131,9 +131,23 @@ public class Breakout extends GraphicsProgram {
 	
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
-		if (getElementAt(ball.getX(),ball.getY())==paddle) {
+		if (checkElement()==true) {
 			vy=-1*Math.abs(vy);
 		}
+	}
+	
+	private boolean checkElement() {
+		double checkX=ball.getX();
+		double checkY=ball.getY();
+		ball.sendBackward();
+		if (getElementAt(checkX,checkY) != ball) return false;
+		checkX= checkX+ ball.getWidth();
+		if (getElementAt(checkX,checkY) != ball) return false;
+		checkY= checkY+ball.getHeight();
+		if (getElementAt(checkX,checkY) != ball) return false;
+		checkX=checkX-ball.getWidth();
+		if (getElementAt(checkX,checkY) != ball) return false;
+		return true;
 	}
 
 	/** Makes paddle track mouse */
@@ -229,6 +243,5 @@ public class Breakout extends GraphicsProgram {
 		}
 		return(FIFTH_TWO_ROWS_COLOR);
 	}
-
-
+	
 }
