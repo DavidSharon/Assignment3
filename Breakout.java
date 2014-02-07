@@ -108,10 +108,13 @@ public class Breakout extends GraphicsProgram {
 				           paddle.getY());
 	}
 	
-	/** Sets up bricks in game */
-	private void setupGame() {
+	public void mouseClicked(MouseEvent e) {
 		vx=rgen.nextDouble(1,3);
 		vy=3.0;
+		
+	
+	/** Sets up bricks in game */
+	private void setupGame() {
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
 			for (int column=1; column<=NBRICK_ROWS; column++) {
 				createBrick(row,column);
