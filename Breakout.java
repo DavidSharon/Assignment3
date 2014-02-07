@@ -85,11 +85,16 @@ public class Breakout extends GraphicsProgram {
 	/**Instance variable of paddle */
 	private GOval ball =createBall();
 	
+	/**Instance variables of ball velocity on x and y axis */
+	private double vx, vy;
+	
+	/** Intialize Random Generator */
+	RandomGenerator rgen = RandomGenerator.getInstance(); 
+
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setupGame();
 		addMouseListeners();
-		add(ball);
 		/*
 		for (int life=1; life<=NTURNS; life++) {
 			playTurn();
@@ -97,9 +102,16 @@ public class Breakout extends GraphicsProgram {
 	}
 	*/
 	}
+	/** Makes paddle track mouse */
+	public void mouseMoved(MouseEvent e) {
+		paddle.setLocation(e.getX() - paddle.getWidth() / 2.0,
+				            e.getY() - paddle.getHeight() / 2.0);
+	}
+	
 	/** Sets up bricks in game */
-
 	private void setupGame() {
+		vx=rgen.nextDouble(1,3);
+		vy=3.0;
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
 			for (int column=1; column<=NBRICK_ROWS; column++) {
 				createBrick(row,column);
