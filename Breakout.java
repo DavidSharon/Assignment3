@@ -25,7 +25,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int WIDTH = APPLICATION_WIDTH;
 	private static final int HEIGHT = APPLICATION_HEIGHT;
 
-	
+
 	/** Dimensions of the paddle */
 	private static final int PADDLE_WIDTH = 60;
 	private static final int PADDLE_HEIGHT = 10;
@@ -59,14 +59,14 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 
 	private static final int WAIT_BETWEEN_BALL_MOVES=50;
-	
+
 	/** Paddle color */
 	private static final Color PADDLE_COLOR=Color.black;
-	
+
 	/**Ball color */
 	private static final Color BALL_COLOR=Color.black;
 
-	
+
 	/** Brick color of first two rows */
 	private static final Color FIRST_TWO_ROWS_COLOR=Color.RED;
 
@@ -81,47 +81,66 @@ public class Breakout extends GraphicsProgram {
 
 	/** Brick color of fifth two rows */
 	private static final Color FIFTH_TWO_ROWS_COLOR=Color.CYAN;
-	
+
 	/**Instance variable of paddle */
 	private GRect paddle =createPaddle();
-	
+
 	/**Instance variable of paddle */
 	private GOval ball =createBall();
-	
+
 	/**Instance variables of ball velocity on x and y axis */
 	private double vx, vy;
-	
+
 	private boolean isBeginningOfTurn=true;
-	
+
 	/** Intialize Random Generator */
 	RandomGenerator rgen = RandomGenerator.getInstance(); 
 
 	public void run() {
 		setupGame();
 		addMouseListeners();
-		/*
+
 		for (int life=1; life<=NTURNS; life++) {
 			if (isBeginningOfTurn=false){
 				playTurn(life);
 			}
 		}
 	}
-	*/
-	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
-	/*
+
 	private void playTurn(int life) {
 		while (ball.getY()>HEIGHT) {
-			adjustForWallCollision();
-			adjustForBrickCollision();
-			adjustForPaddleCollision();
 			ball.move(vx,vy);
+			adjustForWallCollision();
+			/*adjustForBrickCollision();*/
+			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
 		isBeginningOfTurn=true;
 	}
-	*/
+
+	/** Adjusts ball trajectory if it hit any of the walls- except the bottom one **/
+	private void adjustForWallCollision() {
+		if (ball.getX() >= WIDTH) {
+			vx=-1*Math.abs(vx);
+		}else{
+			if (ball.getX()<=WIDTH) {
+				vx=Math.abs(vx);
+			}else{
+				if (ball.getY()<=0) {
+					vy=Math.abs(vy);
+				}
+			}
+		}
+	}
 	
+	private void adjustForPaddleCollision() {
+		ball.sendToBack();
+		if (getElementAt(ball.getX(),ball.getY())==paddle) {
+			vy=-1*Math.abs(vy);
+		}
+	}
+
 	/** Makes paddle track mouse */
 	public void mouseMoved(MouseEvent e) {
 		double paddleLocationX=e.getX()-paddle.getWidth() / 2.0;
@@ -132,11 +151,11 @@ public class Breakout extends GraphicsProgram {
 				paddleLocationX=0;
 			}
 		}
-		
+
 		paddle.setLocation(paddleLocationX,
-				           paddle.getY());
+				paddle.getY());
 	}
-	
+
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
 		if (isBeginningOfTurn==true) {
@@ -146,7 +165,7 @@ public class Breakout extends GraphicsProgram {
 			isBeginningOfTurn=false;
 		}
 	}
-	
+
 	/** Sets up bricks in game */
 	private void setupGame() {
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
@@ -155,7 +174,7 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
-	
+
 	/** Creates ball and does not add to screen*/
 	private GOval createBall() {
 		double ballStartX= WIDTH/2-BALL_RADIUS;
@@ -167,7 +186,7 @@ public class Breakout extends GraphicsProgram {
 		newBall.setFillColor(BALL_COLOR);
 		return newBall;
 	}
-	
+
 	/** Creates paddle and adds to screen*/
 	private GRect createPaddle() {
 		double paddleStartX= (WIDTH- PADDLE_WIDTH)/2;
@@ -178,7 +197,7 @@ public class Breakout extends GraphicsProgram {
 		add(newPaddle);
 		return newPaddle;
 	}
-	
+
 	/** Creates individual brick given row and column */
 
 	private void createBrick(int row, int column) {
