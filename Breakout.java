@@ -110,8 +110,7 @@ public class Breakout extends GraphicsProgram {
 			/*adjustForBrickCollision();*/
 			adjustForPaddleCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
-			}
-		ball.setFillColor(Color.white);
+		}
 		ball=createBall();
 	}
 
