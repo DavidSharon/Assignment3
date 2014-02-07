@@ -57,6 +57,13 @@ public class Breakout extends GraphicsProgram {
 	/** Number of turns */
 	private static final int NTURNS = 3;
 
+	/** Paddle color */
+	private static final Color PADDLE_COLOR=Color.black;
+	
+	/**Ball color */
+	private static final Color BALL_COLOR=Color.black;
+
+	
 	/** Brick color of first two rows */
 	private static final Color FIRST_TWO_ROWS_COLOR=Color.RED;
 
@@ -71,12 +78,25 @@ public class Breakout extends GraphicsProgram {
 
 	/** Brick color of fifth two rows */
 	private static final Color FIFTH_TWO_ROWS_COLOR=Color.CYAN;
+	
+	/**Instance variable of paddle */
+	private GRect paddle =createPaddle();
+	
+	/**Instance variable of paddle */
+	private GOval ball =createBall();
+	
 	public void run() {
 		/* You fill this in, along with any subsidiary methods */
 		setupGame();
-		/*playGame(); */
+		addMouseListeners();
+		add(ball);
+		/*
+		for (int life=1; life<=NTURNS; life++) {
+			playTurn();
+		}
 	}
-
+	*/
+	}
 	/** Sets up bricks in game */
 
 	private void setupGame() {
@@ -86,7 +106,30 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
-
+	
+	/** Creates ball and does not add to screen*/
+	private GOval createBall() {
+		double ballStartX= APPLICATION_WIDTH/2;
+		double lowestBrickY= NBRICK_ROWS*BRICK_HEIGHT+BRICK_Y_OFFSET;
+		double heightBetweenPaddleLowestBrick= lowestBrickY-PADDLE_HEIGHT+PADDLE_Y_OFFSET;
+		double ballStartY= lowestBrickY+heightBetweenPaddleLowestBrick;
+		GOval newBall= new GOval(ballStartX,ballStartY,2*BALL_RADIUS,2*BALL_RADIUS);
+		newBall.setFilled(true);
+		newBall.setFillColor(BALL_COLOR);
+		return newBall;
+	}
+	
+	/** Creates paddle and adds to screen*/
+	private GRect createPaddle() {
+		double paddleStartX= (APPLICATION_WIDTH- PADDLE_WIDTH)/2;
+		double paddleStartY=APPLICATION_HEIGHT-PADDLE_Y_OFFSET-PADDLE_HEIGHT;
+		GRect newPaddle= new GRect(paddleStartX,paddleStartY,PADDLE_WIDTH,PADDLE_HEIGHT);
+		newPaddle.setFilled(true);
+		newPaddle.setFillColor(PADDLE_COLOR);
+		add(newPaddle);
+		return newPaddle;
+	}
+	
 	/** Creates individual brick given row and column */
 
 	private void createBrick(int row, int column) {
@@ -102,7 +145,9 @@ public class Breakout extends GraphicsProgram {
 
 	}
 
-	/** Returns color of a brick given it's row */
+	/** Returns color of a brick given it's row 
+	 * Could have used switch method here, but already coded it
+	 * when you sent out the tips-- next time!*/
 
 	private Color whatIsColorGivenRow(int row) {
 		if (row<=2){
