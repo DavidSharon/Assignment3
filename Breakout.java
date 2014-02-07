@@ -107,10 +107,11 @@ public class Breakout extends GraphicsProgram {
 		while (ball.getY()+BALL_RADIUS*2<HEIGHT) {
 			ball.move(vx,vy);
 			adjustForWallCollision();
-			adjustForBrickCollision();
 			adjustForPaddleCollision();
+			adjustForBrickCollision();
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
+		remove(ball);
 		ball=createBall();
 	}
 
