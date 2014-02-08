@@ -131,11 +131,11 @@ public class Breakout extends GraphicsProgram {
 	/** Prints Game is Over **/
 	private void gameOverMessage() {
 		GLabel message= new GLabel("Game is Over");
-		double messageX=WIDTH/2-message.getWidth()/2;
-		double messageY=BRICK_HEIGHT*NBRICK_ROWS+BRICK_Y_OFFSET+(HEIGHT-PADDLE_Y_OFFSET-BRICK_HEIGHT*NBRICK_ROWS-BRICK_Y_OFFSET)/2-message.getDescent()/2;
-		message.setLocation(messageX,messageY );
 		message.setFont("SansSerif-36");
 		message.setColor(Color.RED);
+		double messageX=WIDTH/2-message.getWidth()/2;
+		double messageY=BRICK_HEIGHT*NBRICK_ROWS+BRICK_Y_OFFSET+(HEIGHT-PADDLE_Y_OFFSET-BRICK_HEIGHT*NBRICK_ROWS-BRICK_Y_OFFSET)/2-message.getDescent()/2;
+		message.setLocation(messageX,messageY);
 		add(message);
 	}
 	/** Adjusts ball trajectory if it hit any of the walls- except the bottom one **/
