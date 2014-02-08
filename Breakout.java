@@ -118,6 +118,9 @@ public class Breakout extends GraphicsProgram {
 			adjustForWallCollision();
 			adjustForPaddleCollision();
 			adjustForBrickCollision();
+			if (anyBrickStillPresent()==false) {
+				break;
+			}
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
 		remove(ball);
