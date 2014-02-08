@@ -102,6 +102,8 @@ public class Breakout extends GraphicsProgram {
 		for (int life=1; life<=NTURNS; life++) {
 			playTurn(life);
 		}
+		/*Will not allow mouse click to release new ball*/
+		ballInPlay=true;
 	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 
