@@ -110,8 +110,8 @@ public class Breakout extends GraphicsProgram {
 		ballInPlay=true;
 		gameOverMessage();
 	}
+	
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
-
 	private void playTurn(int life) {
 		while (ball.getY()+BALL_RADIUS*2<HEIGHT) {
 			ball.move(vx,vy);
@@ -152,7 +152,8 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
-
+	
+	/**Adjusts ball trajectory when hitting paddle **/
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
 		if (ballIsClear()==paddle) {
@@ -160,6 +161,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**Adjusts ball trajectory when hitting Brick **/
 	private void adjustForBrickCollision() {
 		if (ballIsClear() != ball && ballIsClear() != paddle) {
 			int collisionPoint=pointOfBallCollision();
@@ -180,6 +182,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**Checks if ball did not hit anything by checking four points in rectangle tangent to ball **/
 	private GObject ballIsClear() {
 		double checkX=ball.getX();
 		double checkY=ball.getY();
@@ -193,6 +196,8 @@ public class Breakout extends GraphicsProgram {
 		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
 		return ball;
 	}
+	
+	/**Checks if any bricks still left on board **/
 	private boolean anyBrickStillPresent() {
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
 			for (int column=1; column<=NBRICK_ROWS; column++) {
@@ -201,6 +206,8 @@ public class Breakout extends GraphicsProgram {
 		}
 		return false;
 	}
+	
+	/**Checks if there is a brick in a certain point given the row and column of brick **/
 	private boolean checkBrickAbsent (int row, int column) {
 		double topBrickX= (WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
 		double topBrickY= BRICK_Y_OFFSET;
@@ -211,6 +218,8 @@ public class Breakout extends GraphicsProgram {
 		}
 		return true;
 	}
+	
+	/**Gives a reference point of where ball has collided with another object. Going from 1 to 4 from west most point in rectangle tangent to ball clockwise **/
 	private int pointOfBallCollision() {
 		double checkX=ball.getX()+BALL_RADIUS;
 		double checkY=ball.getY();
