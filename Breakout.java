@@ -92,7 +92,9 @@ public class Breakout extends GraphicsProgram {
 	private double vx, vy;
 
 	/** Intialize Random Generator */
-	RandomGenerator rgen = RandomGenerator.getInstance(); 
+	RandomGenerator rgen = RandomGenerator.getInstance();
+	
+	private int life=0;
 
 	public void run() {
 		setupGame();
@@ -204,7 +206,7 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		if (ball.isVisible()==false) {
+		if (ball.isVisible()==false || life==0) {
 			vx=rgen.nextDouble(1,3);
 			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
@@ -215,7 +217,6 @@ public class Breakout extends GraphicsProgram {
 
 	/** Sets up bricks in game */
 	private void setupGame() {
-		remove(ball);
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
 			for (int column=1; column<=NBRICK_ROWS; column++) {
 				createBrick(row,column);
