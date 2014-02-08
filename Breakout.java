@@ -91,9 +91,10 @@ public class Breakout extends GraphicsProgram {
 	/**Instance variables of ball velocity on x and y axis */
 	private double vx, vy;
 
-	/** Intialize Random Generator */
+	/**Intialize Random Generator */
 	RandomGenerator rgen = RandomGenerator.getInstance();
 	
+	/** Tracks if ball is on the board **/
 	private boolean ballInPlay=false;
 
 	public void run() {
@@ -101,9 +102,13 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		for (int life=1; life<=NTURNS; life++) {
 			playTurn(life);
+			if (anyBrickStillPresent()==false) {
+				break;
+			}
 		}
 		/*Will not allow mouse click to release new ball*/
 		ballInPlay=true;
+		gameOverMessage();
 	}
 	/**Keeps ball moving, changes direction of ball if hit wall or brick as long as ball did not hit bottom */
 
@@ -120,6 +125,13 @@ public class Breakout extends GraphicsProgram {
 		ball=createBall();
 	}
 
+	/** Prints Game is Over **/
+	private void gameOverMessage() {
+		GLabel message= new GLabel("Game is Over", WIDTH/2, HEIGHT/2);
+		message.setFont("SansSerif-36");
+		message.setColor(Color.RED);
+		add(message);
+	}
 	/** Adjusts ball trajectory if it hit any of the walls- except the bottom one **/
 	private void adjustForWallCollision() {
 		if (ball.getX() +ball.getWidth() >= WIDTH) {
@@ -175,7 +187,24 @@ public class Breakout extends GraphicsProgram {
 		if (getElementAt(checkX,checkY) != null) return getElementAt(checkX,checkY);
 		return ball;
 	}
-
+	private boolean anyBrickStillPresent() {
+		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
+			for (int column=1; column<=NBRICK_ROWS; column++) {
+				if (checkBrickAbsent(row,column)==false) return true;
+			}
+		}
+		return false;
+	}
+	private boolean checkBrickAbsent (int row, int column) {
+		double topBrickX= (WIDTH-BRICK_WIDTH*NBRICKS_PER_ROW)/2;
+		double topBrickY= BRICK_Y_OFFSET;
+		double currentBrickX= topBrickX+(column-1)*BRICK_WIDTH;
+		double currentBrickY= topBrickY+(row-1)*BRICK_HEIGHT;
+		if (getElementAt(currentBrickX,currentBrickY) != null && getElementAt(currentBrickX,currentBrickY) != ball) {
+			return false;
+		}
+		return true;
+	}
 	private int pointOfBallCollision() {
 		double checkX=ball.getX()+BALL_RADIUS;
 		double checkY=ball.getY();
