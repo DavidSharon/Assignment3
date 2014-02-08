@@ -204,7 +204,7 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		if (ball.isVisible()==false) {
+		if (ball.isVisible()==true) {
 			vx=rgen.nextDouble(1,3);
 			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
