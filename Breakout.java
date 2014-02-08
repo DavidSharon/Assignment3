@@ -204,7 +204,7 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		if (ball.isVisible()==true) {
+		if (ball.isVisible()==false) {
 			vx=rgen.nextDouble(1,3);
 			if (rgen.nextBoolean(0.5)) vx = -vx;
 			vy=3.0;
@@ -215,6 +215,7 @@ public class Breakout extends GraphicsProgram {
 
 	/** Sets up bricks in game */
 	private void setupGame() {
+		remove(ball);
 		for (int row=1; row<=NBRICKS_PER_ROW; row++) {
 			for (int column=1; column<=NBRICK_ROWS; column++) {
 				createBrick(row,column);
