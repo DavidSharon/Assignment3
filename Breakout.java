@@ -94,7 +94,7 @@ public class Breakout extends GraphicsProgram {
 	/** Intialize Random Generator */
 	RandomGenerator rgen = RandomGenerator.getInstance();
 	
-	private int life=0;
+	private boolean ballInPlay=false;
 
 	public void run() {
 		setupGame();
@@ -114,6 +114,7 @@ public class Breakout extends GraphicsProgram {
 			pause(WAIT_BETWEEN_BALL_MOVES);
 		}
 		remove(ball);
+		ballInPlay=false;
 		ball=createBall();
 	}
 
@@ -206,12 +207,13 @@ public class Breakout extends GraphicsProgram {
 
 	/**drops ball if beginning of turn and mouse clicked*/
 	public void mouseClicked(MouseEvent e) {
-		if (ball.isVisible()==false || life==0) {
-			vx=rgen.nextDouble(1,3);
-			if (rgen.nextBoolean(0.5)) vx = -vx;
-			vy=3.0;
-			createBall();
-			add(ball);
+			if (ballInPlay==false) {
+				vx=rgen.nextDouble(1,3);
+				if (rgen.nextBoolean(0.5)) vx = -vx;
+				vy=3.0;
+				createBall();
+				add(ball);
+				ballInPlay=true;
 		}
 	}
 
