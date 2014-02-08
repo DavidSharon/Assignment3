@@ -131,8 +131,8 @@ public class Breakout extends GraphicsProgram {
 	/** Prints Game is Over **/
 	private void gameOverMessage() {
 		GLabel message= new GLabel("Game is Over");
-		double messageX=(WIDTH-message.getWidth())/2;
-		double messageY=BRICK_HEIGHT*NBRICK_ROWS+BRICK_Y_OFFSET+(HEIGHT-PADDLE_Y_OFFSET-BRICK_HEIGHT*NBRICK_ROWS-BRICK_Y_OFFSET)-message.getDescent()/2;
+		double messageX=(WIDTH-message.getWidth()/2)/2;
+		double messageY=BRICK_HEIGHT*NBRICK_ROWS+BRICK_Y_OFFSET+(HEIGHT-PADDLE_Y_OFFSET-BRICK_HEIGHT*NBRICK_ROWS-BRICK_Y_OFFSET)/2-message.getDescent()/2;
 		message.setLocation(messageX,messageY );
 		message.setFont("SansSerif-36");
 		message.setColor(Color.RED);
