@@ -58,7 +58,7 @@ public class Breakout extends GraphicsProgram {
 	/** Number of turns */
 	private static final int NTURNS = 3;
 
-	private static final int WAIT_BETWEEN_BALL_MOVES=10;
+	private static final int WAIT_BETWEEN_BALL_MOVES=15;
 
 	/** Paddle color */
 	private static final Color PADDLE_COLOR=Color.black;
