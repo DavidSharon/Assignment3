@@ -96,6 +96,9 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Tracks if ball is on the board **/
 	private boolean ballInPlay=false;
+	
+	/** Speeds ball in event of hit **/
+	private static final double ACCELERATE=1.5;
 
 	public void run() {
 		setupGame();
@@ -144,10 +147,10 @@ public class Breakout extends GraphicsProgram {
 			vx=-1*Math.abs(vx);
 		}else{
 			if (ball.getX()<=0) {
-				vx=Math.abs(vx);
+				vx=Math.abs(vx)*ACCELERATE;
 			}else{
 				if (ball.getY()<=0) {
-					vy=Math.abs(vy);
+					vy=Math.abs(vy)*ACCELERATE;
 				}
 			}
 		}
@@ -157,7 +160,7 @@ public class Breakout extends GraphicsProgram {
 	private void adjustForPaddleCollision() {
 		ball.sendToBack();
 		if (ballIsClear()==paddle) {
-			vy=-1*Math.abs(vy);
+			vy=-1*Math.abs(vy)*ACCELERATE;
 		}
 	}
 
